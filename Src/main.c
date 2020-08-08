@@ -49,9 +49,9 @@ int main(void)
   MX_USART2_UART_Init();
   i2cEepromInit();
 
-  uint8_t msg[100];
-  uint8_t wmsg[] = "Embedded Diaries\r\n";
-  uint8_t rmsg[200];
+  uint8_t msg[100] = {0};
+  uint8_t wmsg[] = "EmbeddedDiaries\r\n";
+  uint8_t rmsg[200] = {0};
 	
   if(HAL_I2C_IsDeviceReady(&eepromI2c,EEPROMDEVADDR,2,1000) == HAL_OK)
   {
@@ -62,10 +62,8 @@ int main(void)
   eepromWriteIO(EEPROMDEVADDR, 0x0010, wmsg, sizeof(wmsg)+1);
   eepromReadIO(EEPROMDEVADDR, 0x0010, rmsg, sizeof(wmsg)+1);
   HAL_UART_Transmit(&huart2,(uint8_t*)rmsg,sizeof(rmsg),1000);
-
   while (1)
   {
-
   }
 
 }
